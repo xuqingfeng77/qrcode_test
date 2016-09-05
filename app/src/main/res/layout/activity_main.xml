@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
+    <EditText
         android:id="@+id/ECoder_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,6 +17,7 @@
         android:textColor="#ff646464"
         android:textSize="18sp" />
 
+
     <ImageView
         android:id="@+id/ECoder_image"
         android:layout_width="180dp"
@@ -28,10 +29,25 @@
         android:background="@drawable/shape_main_imageview" />
 
     <EditText
+        android:id="@+id/enc_result"
+        android:layout_below="@+id/ECoder_image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@drawable/shape_main_title"
+        android:gravity="center"
+        android:text="加密后的结果"
+        android:textColor="#ff646464"
+        android:textSize="18sp"
+        />
+    <EditText
         android:id="@+id/ECoder_input"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ECoder_image"
+        android:layout_below="@+id/enc_result"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_main_edit"

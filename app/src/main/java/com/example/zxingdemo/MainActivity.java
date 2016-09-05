@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -22,21 +23,23 @@ public class MainActivity extends Activity {
 	private static final String DECODED_CONTENT_KEY = "codedContent";
 	private static final String DECODED_BITMAP_KEY = "codedBitmap";
 
-	TextView qrCoded;
+	EditText qrCoded;
 	ImageView qrCodeImage;
 	Button creator, scanner;
 	EditText qrCodeUrl;
+	EditText encResult;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		qrCoded = (TextView) findViewById(R.id.ECoder_title);
+		qrCoded = (EditText) findViewById(R.id.ECoder_title);
 		qrCodeImage = (ImageView) findViewById(R.id.ECoder_image);
 		creator = (Button) findViewById(R.id.ECoder_creator);
 		scanner = (Button) findViewById(R.id.ECoder_scaning);
 		qrCodeUrl = (EditText) findViewById(R.id.ECoder_input);
+		encResult=(EditText)findViewById(R.id.enc_result);
 
 		creator.setOnClickListener(new OnClickListener() {
 
@@ -76,8 +79,17 @@ public class MainActivity extends Activity {
 
 				String content = data.getStringExtra(DECODED_CONTENT_KEY);
 				Bitmap bitmap = data.getParcelableExtra(DECODED_BITMAP_KEY);
-
-				qrCoded.setText("解码结果： \n" + content);
+				String tempEncResult="";
+				int index=content.lastIndexOf("/");
+				tempEncResult=content.substring(index+1);
+				qrCoded.setText("解码结果： \n" + tempEncResult);
+				try {
+					tempEncResult = new DESPlus("A32BF2310942DFBA").decrypt(tempEncResult);
+				}catch (Exception e){
+						e.printStackTrace();
+					Toast.makeText(MainActivity.this,"加密异常",Toast.LENGTH_SHORT).show();
+				}
+				encResult.setText(tempEncResult);
 				qrCodeImage.setImageBitmap(bitmap);
 			}
 		}
